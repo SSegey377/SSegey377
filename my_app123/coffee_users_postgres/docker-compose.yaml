@@ -1,0 +1,27 @@
+
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5435:5432"
+
+  app:
+    build: .
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/postgres
+    ports:
+      - "5000:5000"
+    command: ["sh", "-c", "sleep 30 && python app.py"]
+
+
+
+
+
+
+
